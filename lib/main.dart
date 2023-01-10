@@ -30,7 +30,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   List<Todo> todos = [
     Todo(
       title: "패스트 캠퍼스 강의듣기",
@@ -51,9 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   @override
-    void initState() {
-      super.initState();
-    }
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,27 +63,29 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView.builder(
         itemBuilder: (ctx, idx) {
-          if(idx == 0){
+          if (idx == 0) {
             return Container(
-              child: Text("오늘하루"),
+              child: const Text("오늘하루"),
             );
-          } else if(idx == 1){
+          } else if (idx == 1) {
             return Container(
               child: Column(
-                children: List.generate(todos.length, (_idx){
-                  Todo t = todos[_idx];
+                children: List.generate(todos.length, (idx) {
+                  Todo t = todos[idx];
 
                   return Container(
-                    child: Column(
-                      children: [
-                        Row(children: [
+                    child: Column(children: [
+                      Row(
+                        children: [
                           Text(t.title),
                           Text(t.done == 0 ? "미완료" : "완료")
-                        ],)
+                        ],
+                      )
                     ]),
                   );
                 }),
-            ));
+              ),
+            );
           }
         },
         itemCount: 4,

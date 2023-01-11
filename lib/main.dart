@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/data/todo.dart';
+import 'package:todo/data/util.dart';
+import 'package:todo/write.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,14 +63,20 @@ class _MyHomePageState extends State<MyHomePage> {
         preferredSize: const Size.fromHeight(0),
         child: AppBar(),
       ),
-      floatingActionButton: const FloatingActionButton(
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add,
+        color: Colors.white),
         onPressed: () {
-          // 화면을 이동해야 합니다.
-        },
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (cdx) => TodoWritePage(todo: Todo(
+              title: "",
+              color: 0,
+              memo: "",
+              done: 0,
+              category: "",
+              date: Utils.getFormatTime(DateTime.now()),
+            ),)));
+        }
       ),
       body: ListView.builder(
         itemBuilder: (ctx, idx) {

@@ -17,6 +17,7 @@ class _TodoWritePageState extends State<TodoWritePage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController memoController = TextEditingController();
   int colorIndex = 0;
+  int ctIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,11 @@ class _TodoWritePageState extends State<TodoWritePage> {
             ),
             onPressed: () {
               // 페이지 저장시 사용
+              widget.todo.title = nameController.text;
+              widget.todo.memo = memoController.text;
+
+              Navigator.of(context).pop(widget.todo);
+
             },
           )
         ],
@@ -57,14 +63,15 @@ class _TodoWritePageState extends State<TodoWritePage> {
                 margin:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
                       "색상",
                       style: TextStyle(fontSize: 20),
                     ),
                     Container(
-                      width: 10,
-                      height: 10,
+                      width: 20,
+                      height: 20,
                       color: Color(widget.todo.color),
                     )
                   ],
@@ -86,14 +93,14 @@ class _TodoWritePageState extends State<TodoWritePage> {
 
                 setState(() {
                   colorIndex = colorIndex % colors.length;
-                  // CH02-3_TODO화면만들기 Step 2 35분 10초 부터 다시 시작
                 });
               },
             );
           } else if (idx == 3) {
-            return Container(
-              margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            return InkWell(child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
                     "카테고리",
@@ -102,6 +109,17 @@ class _TodoWritePageState extends State<TodoWritePage> {
                   Text(widget.todo.category)
                 ],
               ),
+            ),
+              onTap: () {
+                List<String> category = ["공부", "운동", "게임"];
+
+                widget.todo.category = category[ctIndex];
+                ctIndex ++;
+                setState(() {
+                ctIndex = ctIndex % category.length;
+                });
+
+              } ,
             );
           } else if (idx == 4) {
             return Container(

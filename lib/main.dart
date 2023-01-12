@@ -63,11 +63,12 @@ class _MyHomePageState extends State<MyHomePage> {
         preferredSize: const Size.fromHeight(0),
         child: AppBar(),
       ),
+
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add,
         color: Colors.white),
-        onPressed: () {
-          Navigator.of(context).push(
+        onPressed: () async {
+          Todo todo = await Navigator.of(context).push(
             MaterialPageRoute(builder: (cdx) => TodoWritePage(todo: Todo(
               title: "",
               color: 0,
@@ -76,6 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
               category: "",
               date: Utils.getFormatTime(DateTime.now()),
             ),)));
+
+            setState(() {
+             todos.add(todo);
+            });
         }
       ),
       body: ListView.builder(
@@ -97,8 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
               children: List.generate(undone.length, (idx) {
                 Todo t = undone[idx];
-
-                return Container(
+                return InkWell(child: Container(
                   decoration: BoxDecoration(
                       color: Color(t.color),
                       borderRadius: BorderRadius.circular(16)),
@@ -132,6 +136,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       )
                     ],
                   ),
+                ),
+                  onTap: (){
+                    setState(() {
+                   if (t.done == 0){
+                    t.done == 1;
+                   } else {
+                    t.done == 0;
+                   }
+                  // 2-4 TODO 화면 만들기 STEP 3 1:55초 부터 시작하기
+                    });
+                  },
                 );
               }),
             ));
@@ -180,14 +195,15 @@ class _MyHomePageState extends State<MyHomePage> {
                           )
                         ],
                       ),
-                      Container(height: 12),
+                      Container(height: 8),
                       Text(
                         t.memo,
                         style: const TextStyle(color: Colors.white),
-                      )
+                      ),
                     ],
                   ),
                 );
+                
               }),
             ));
           }

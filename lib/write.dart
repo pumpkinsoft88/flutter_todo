@@ -20,6 +20,13 @@ class _TodoWritePageState extends State<TodoWritePage> {
   int ctIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+    nameController.text = widget.todo.title;
+    memoController.text = widget.todo.memo;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +42,6 @@ class _TodoWritePageState extends State<TodoWritePage> {
               widget.todo.memo = memoController.text;
 
               Navigator.of(context).pop(widget.todo);
-
             },
           )
         ],
@@ -97,29 +103,30 @@ class _TodoWritePageState extends State<TodoWritePage> {
               },
             );
           } else if (idx == 3) {
-            return InkWell(child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "카테고리",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(widget.todo.category)
-                ],
+            return InkWell(
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "카테고리",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Text(widget.todo.category)
+                  ],
+                ),
               ),
-            ),
               onTap: () {
                 List<String> category = ["공부", "운동", "게임"];
 
                 widget.todo.category = category[ctIndex];
-                ctIndex ++;
+                ctIndex++;
                 setState(() {
-                ctIndex = ctIndex % category.length;
+                  ctIndex = ctIndex % category.length;
                 });
-
-              } ,
+              },
             );
           } else if (idx == 4) {
             return Container(

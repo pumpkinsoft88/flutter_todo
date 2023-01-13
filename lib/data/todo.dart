@@ -5,6 +5,14 @@ class Todo {
   int color;
   int done;
   int date;
+  int id;
 
-  Todo({this.title, this.memo, this.color, this.category, this.done, this.date});
+  Todo(
+      {this.title,
+      this.memo,
+      this.color,
+      this.category,
+      this.done,
+      this.date,
+      this.id});
 }

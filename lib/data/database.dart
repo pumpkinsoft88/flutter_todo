@@ -23,7 +23,7 @@ class DatabaseHelper {
   _initDatabase() async {
     var databasePath = await getDatabasesPath();
     String path = join(databasePath, _databaseName);
-    return await openDatabase(path,
+    return openDatabase(path,
         version: _databaseVersion, onCreate: _onCreate, onUpgrade: _onUpgrade);
   }
 
@@ -32,6 +32,7 @@ class DatabaseHelper {
     CREATE TABLE IF NOT EXISTS $todoTable (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       date INTEGER DEFAULT 0, 
+      done INTEGER DEFAULT 0, 
       title String,
       memo String,
       color INTEGER,
@@ -50,6 +51,7 @@ class DatabaseHelper {
         Map<String, dynamic> row = {
           'title': todo.title,
           'date': todo.date,
+          'done': todo.done,
           'memo': todo.memo,
           'color': todo.color,
           'category': todo.category,
@@ -60,6 +62,7 @@ class DatabaseHelper {
         Map<String, dynamic> row = {
           'title': todo.title,
           'date': todo.date,
+          'done': todo.done,
           'memo': todo.memo,
           'color': todo.color,
           'category': todo.category,
@@ -83,6 +86,7 @@ class DatabaseHelper {
             id: q["id"],
             title: q["title"],
             date: q["date"],
+            done: q["done"],
             memo: q["memo"],
             color: q["color"],
             category: q["category"]),
@@ -104,6 +108,7 @@ class DatabaseHelper {
             id: q["id"],
             title: q["title"],
             date: q["date"],
+            done: q["done"],
             memo: q["memo"],
             color: q["color"],
             category: q["category"]),
@@ -111,4 +116,6 @@ class DatabaseHelper {
     }
     return todos;
   }
+
+  void insertTodo(Todo todo) {}
 }
